@@ -5,7 +5,11 @@
 //the returned object is a new state object (think immutability)
 
 export const initialState = {
-    todos: [{item: "First Todo", completed: true, id: 1}],
+    todos: [{
+        item: "First Todo", 
+        completed: true, 
+        id: 1
+    }],
     newTodoText: ""
 }
 
