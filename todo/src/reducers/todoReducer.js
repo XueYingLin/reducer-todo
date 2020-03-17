@@ -5,25 +5,34 @@
 //the returned object is a new state object (think immutability)
 
 export const initialState = {
-    item: 'Learn about reducers',
-    completed: false,
-    id: 3892987589
+    todos: [{item: "First Todo", completed: true, id: 1}],
+    newTodoText: ""
 }
 
 export const todoReducer = (state, action) => {
     console.log(action);
     switch (action.type) {
-        case 'UPDSTE_TITLE':
+        case 'ADD_TODO':
             return {
                 ...state,
-                item: action.payload
-            };
+                todos: [...state.todos, action.payload]
+            }
         case 'TOGGLE_COMPLETE':
+            const newTodos = [...state.todos];
+            for (const todo of newTodos) {
+                if (todo.id === action.payload.todoId) {
+                    todo.completed = !todo.completed;
+                }
+            }
             return {
                 ...state,
-                item: action.payload,
-                completed: true
+                todos: newTodos,
             };
+        case 'CLEAR_COMPLETED':
+            return {
+                ...state,
+                todos: state.todos.filter(t => !t.completed)
+            }
         default:
             return state;
     }
